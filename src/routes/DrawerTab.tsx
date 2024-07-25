@@ -7,7 +7,7 @@ const Drawer = createDrawerNavigator<RootStackParamList>();
 
 const DrawerTab = () => {
   return (
-    <Drawer.Navigator>
+    <Drawer.Navigator screenOptions={{ headerShown: false }}>
       <Drawer.Screen name="BottomTab" component={BottomTab} />
     </Drawer.Navigator>
   );

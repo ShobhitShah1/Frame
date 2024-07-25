@@ -16,6 +16,8 @@ export type RootStackParamList = {
   DrawerTab: undefined;
   BottomTab: undefined;
   Home: undefined;
+  Market: undefined;
+  Save: undefined;
 };
 
 export const screenOptions: NativeStackNavigationOptions = {
@@ -23,7 +25,7 @@ export const screenOptions: NativeStackNavigationOptions = {
   animation: "fade",
   animationTypeForReplace: "push",
   presentation: "transparentModal",
-  navigationBarColor: COLORS.PrimaryLight,
+  navigationBarColor: COLORS.White,
 };
 
 export interface CustomDrawerContentProps {
