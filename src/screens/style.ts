@@ -6,4 +6,13 @@ export const s = StyleSheet.create({
     flex: 1,
     backgroundColor: COLORS.White,
   },
+  textView: {
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  text: {
+    color: "black",
+    fontSize: 17,
+    textAlign: "center",
+  },
 });

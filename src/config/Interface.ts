@@ -5,6 +5,8 @@ import {
 import { DrawerNavigationState, ParamListBase } from "@react-navigation/native";
 import { NativeStackNavigationOptions } from "@react-navigation/native-stack";
 import { COLORS } from "./Theme";
+import { ScrollViewProps, ViewStyle } from "react-native";
+import { ReactNode } from "react";
 
 declare global {
   namespace ReactNavigation {
@@ -19,6 +21,11 @@ export type RootStackParamList = {
   Market: undefined;
   Save: undefined;
 };
+
+export interface ScreenWrapperProps extends ScrollViewProps {
+  children: ReactNode;
+  containerStyle?: ViewStyle;
+}
 
 export const screenOptions: NativeStackNavigationOptions = {
   headerShown: false,
