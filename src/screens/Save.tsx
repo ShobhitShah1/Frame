@@ -7,7 +7,7 @@ const Save = () => {
   return (
     <ScreenWrapper>
       <View style={s.textView}>
-        <Text style={s.text}>Home Screen</Text>
+        <Text style={s.text}>Save Screen</Text>
       </View>
     </ScreenWrapper>
   );
