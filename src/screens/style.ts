@@ -3,37 +3,72 @@ import { COLORS } from "../config/Theme";
 
 const { width } = Dimensions.get("window");
 
+const IMAGE_WIDTH = width / 2 - 8;
+const IMAGE_HEIGHT = 300;
+const SMALL_IMAGE_HEIGHT = IMAGE_HEIGHT / 2 - 5;
+
 export const s = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: COLORS.White,
   },
-  textView: {
-    justifyContent: "center",
-    alignItems: "center",
+  contentContainerStyle: {},
+  imageContainer: {},
+  row: {
+    // marginBottom: 5,
   },
-  text: {
-    color: "black",
-    fontSize: 17,
-    textAlign: "center",
+  largeImage: {
+    width: IMAGE_WIDTH,
+    height: IMAGE_HEIGHT,
+    marginBottom: 10,
+    borderRadius: 10,
+    borderWidth: 1.5,
+    borderColor: COLORS.White,
+
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 5,
+    },
+    shadowOpacity: 0.34,
+    shadowRadius: 6.27,
+
+    elevation: 10,
   },
-  imageContainer: {
-    flex: 1,
-    margin: 5,
-  },
-  image: {
-    width: "50%",
-    height: 200,
-    resizeMode: "cover",
-  },
-  imageRight: {
-    width: "100%",
-    height: 100,
-  },
-  imageLeft: {
-    alignSelf: "flex-start",
+  smallImage: {
+    width: IMAGE_WIDTH,
+    height: SMALL_IMAGE_HEIGHT,
+    marginBottom: 10,
+
+    borderRadius: 10,
+    borderWidth: 1.5,
+    borderColor: COLORS.White,
+
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 5,
+    },
+    shadowOpacity: 0.34,
+    shadowRadius: 6.27,
+
+    elevation: 10,
   },
   columnWrapperStyle: {
+    marginHorizontal: 5,
+    flexWrap: "wrap",
     justifyContent: "space-between",
   },
+  categoryFloatingView: {
+    // paddingBottom: 20,
+    paddingHorizontal: 15,
+    position: "absolute",
+  },
+  categoryContainer: {},
+  categoryImage: {
+    width: 80,
+    height: 80,
+    borderRadius: 500,
+  },
+  categoryName: {},
 });
