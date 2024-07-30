@@ -1,17 +1,21 @@
+import { BlurView } from "@react-native-community/blur";
+import { useBottomTabBarHeight } from "@react-navigation/bottom-tabs";
 import React, { memo, useCallback } from "react";
 import {
   FlatList,
   Image,
-  View,
   ListRenderItem,
   ScrollView,
   Text,
+  TouchableOpacity,
+  View,
 } from "react-native";
+import Animated from "react-native-reanimated";
 import { Shadow, ShadowProps } from "react-native-shadow-2";
 import ScreenWrapper from "../components/ScreenWrapper";
+import { useAnimatedCategories } from "../hooks/useAnimatedCategories";
 import { s } from "./style";
-import { BlurView } from "@react-native-community/blur";
-import { useBottomTabBarHeight } from "@react-navigation/bottom-tabs";
+import useCustomNavigation from "../routes/useCustomNavigation";
 
 type ImageData = {
   id: string;
@@ -24,7 +28,7 @@ type categories = {
   name: string;
 };
 
-const images: ImageData[] = Array.from({ length: 12 }, (_, index) => ({
+const images: ImageData[] = Array.from({ length: 20 }, (_, index) => ({
   id: (index + 1).toString(),
   uri: `https://picsum.photos/200/${Math.floor(Math.random() * 1000)}`,
 }));
@@ -37,8 +41,8 @@ const categories: categories[] = Array.from({ length: 30 }, (_, index) => ({
 
 const ShadowPresets: { view: ShadowProps } = {
   view: {
-    offset: [0, 2],
-    distance: -5,
+    offset: [0, 0],
+    distance: -2,
     startColor: "#c5c5c5",
     safeRender: true,
   },
@@ -54,85 +58,103 @@ type ImageItemProps = {
   index: number;
 };
 
-const ImageItem: React.FC<ImageItemProps> = memo(({ item, index }) => {
-  if (item.length === 1) {
-    return (
-      <View style={[s.imageContainer, s.row]}>
-        <Shadow {...ShadowPresets.view}>
-          <Image source={{ uri: item[0].uri }} style={s.smallImage} />
-        </Shadow>
-      </View>
-    );
-  }
-
-  if (isBigImage(index * 2)) {
-    return (
-      <View style={[s.row, s.imageContainer]}>
-        <Shadow {...ShadowPresets.view}>
-          <Image source={{ uri: item[0].uri }} style={s.largeImage} />
-        </Shadow>
-      </View>
-    );
-  } else {
-    return (
-      <View style={[s.imageContainer]}>
-        <Shadow {...ShadowPresets.view}>
-          <Image source={{ uri: item[0].uri }} style={s.smallImage} />
-        </Shadow>
-        <Shadow {...ShadowPresets.view}>
-          <Image source={{ uri: item[1]?.uri }} style={s.smallImage} />
-        </Shadow>
-      </View>
-    );
-  }
-});
-
-const groupedImages = images.reduce<ImageData[][]>((acc, curr, index) => {
-  if (index % 2 === 0) {
-    acc.push([curr]);
-  } else {
-    acc[acc.length - 1].push(curr);
-  }
-  return acc;
-}, []);
-
 const Home: React.FC = () => {
   const bottomTabHeight = useBottomTabBarHeight();
+  const { animatedStyles } = useAnimatedCategories();
+  const navigation = useCustomNavigation();
+
+  const ImageItem: React.FC<ImageItemProps> = memo(({ item, index }) => {
+    const onPress = () => {
+      navigation.navigate("CanvasFrame");
+    };
+
+    if (item.length === 1) {
+      return (
+        <TouchableOpacity onPress={onPress} style={[s.imageContainer, s.row]}>
+          <Shadow {...ShadowPresets.view}>
+            <Image source={{ uri: item[0].uri }} style={s.smallImage} />
+          </Shadow>
+        </TouchableOpacity>
+      );
+    }
+
+    if (isBigImage(index * 2)) {
+      return (
+        <TouchableOpacity onPress={onPress} style={[s.row, s.imageContainer]}>
+          <Shadow {...ShadowPresets.view}>
+            <Image source={{ uri: item[0].uri }} style={s.largeImage} />
+          </Shadow>
+        </TouchableOpacity>
+      );
+    } else {
+      return (
+        <View>
+          <TouchableOpacity onPress={onPress} style={[s.imageContainer]}>
+            <Shadow {...ShadowPresets.view}>
+              <Image source={{ uri: item[0].uri }} style={s.smallImage} />
+            </Shadow>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={onPress} style={[s.imageContainer]}>
+            <Shadow {...ShadowPresets.view}>
+              <Image source={{ uri: item[1]?.uri }} style={s.smallImage} />
+            </Shadow>
+          </TouchableOpacity>
+        </View>
+      );
+    }
+  });
+
+  const groupedImages = images.reduce<ImageData[][]>((acc, curr, index) => {
+    if (index % 2 === 0) {
+      acc.push([curr]);
+    } else {
+      acc[acc.length - 1].push(curr);
+    }
+    return acc;
+  }, []);
 
   const renderItem: ListRenderItem<ImageData[]> = useCallback(
     ({ item, index }) => <ImageItem item={item} index={index} />,
     []
   );
 
-  console.log(bottomTabHeight);
-
   return (
     <React.Fragment>
-      <ScreenWrapper>
+      <ScreenWrapper style={{}}>
         <FlatList
           numColumns={2}
           data={groupedImages}
           renderItem={renderItem}
           keyExtractor={(item, index) => index.toString()}
           columnWrapperStyle={s.columnWrapperStyle}
-          contentContainerStyle={s.contentContainerStyle}
+          contentContainerStyle={[
+            s.contentContainerStyle,
+            { paddingBottom: bottomTabHeight + 80 },
+          ]}
         />
       </ScreenWrapper>
-      <ScrollView
-        horizontal
-        style={[s.categoryFloatingView, { bottom: bottomTabHeight + 10 }]}
-        showsHorizontalScrollIndicator={false}
-        contentContainerStyle={{ gap: 10 }}
-      >
-        {categories.map((item, index) => {
-          return (
-            <View key={index} style={[s.categoryContainer, {}]}>
-              <Image source={{ uri: item.uri }} style={s.categoryImage} />
-              <Text style={s.categoryName}>{item.name}</Text>
-            </View>
-          );
-        })}
-      </ScrollView>
+
+      <View style={[s.categoryFloatingView, { bottom: bottomTabHeight }]}>
+        <BlurView overlayColor="transparent" blurType="xlight" style={{}}>
+          <Animated.View style={[animatedStyles]}>
+            <ScrollView
+              horizontal={true}
+              style={{ paddingHorizontal: 10 }}
+              contentContainerStyle={{ gap: 10 }}
+              showsHorizontalScrollIndicator={false}
+            >
+              {categories.map((item, index) => {
+                return (
+                  <View key={index} style={[s.categoryContainer, {}]}>
+                    <Image source={{ uri: item.uri }} style={s.categoryImage} />
+                    <Text style={s.categoryName}>{item.name}</Text>
+                  </View>
+                );
+              })}
+            </ScrollView>
+          </Animated.View>
+        </BlurView>
+      </View>
     </React.Fragment>
   );
 };

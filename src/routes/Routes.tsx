@@ -6,6 +6,7 @@ import { RootStackParamList, screenOptions } from "../config/Interface";
 import { COLORS } from "../config/Theme";
 import Drawer from "./DrawerTab";
 import { StatusBar } from "react-native";
+import CanvasFrame from "../screens/CanvasFrame";
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 

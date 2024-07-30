@@ -16,5 +16,8 @@ export const IconsPath = {
   ic_share: require("../../assets/Icons/ic_share.png"),
   ic_setting: require("../../assets/Icons/ic_setting.png"),
   ic_scale: require("../../assets/Icons/ic_scale.png"),
+  ic_back: require("../../assets/Icons/ic_back.png"),
+  ic_selectAll: require("../../assets/Icons/ic_selectAll.png"),
+  ic_delete: require("../../assets/Icons/ic_delete.png"),
 };
 export default { ImagesPath, IconsPath };

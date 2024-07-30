@@ -1,7 +1,18 @@
-import React, { useCallback } from "react";
-import { FlatList, Image, View, ListRenderItem } from "react-native";
+import { BlurView } from "@react-native-community/blur";
+import { useBottomTabBarHeight } from "@react-navigation/bottom-tabs";
+import React, { memo, useCallback } from "react";
+import {
+  FlatList,
+  Image,
+  ListRenderItem,
+  ScrollView,
+  Text,
+  View,
+} from "react-native";
+import Animated from "react-native-reanimated";
 import { Shadow, ShadowProps } from "react-native-shadow-2";
 import ScreenWrapper from "../components/ScreenWrapper";
+import { useAnimatedCategories } from "../hooks/useAnimatedCategories";
 import { s } from "./style";
 
 type ImageData = {
@@ -9,9 +20,21 @@ type ImageData = {
   uri: string;
 };
 
-const images: ImageData[] = Array.from({ length: 150 }, (_, index) => ({
+type categories = {
+  id: string;
+  uri: string;
+  name: string;
+};
+
+const images: ImageData[] = Array.from({ length: 12 }, (_, index) => ({
   id: (index + 1).toString(),
   uri: `https://picsum.photos/200/${Math.floor(Math.random() * 1000)}`,
+}));
+
+const categories: categories[] = Array.from({ length: 30 }, (_, index) => ({
+  id: (index + 1).toString(),
+  uri: `https://picsum.photos/200/${Math.floor(Math.random() * 500)}`,
+  name: "John Smith" + index,
 }));
 
 const ShadowPresets: { view: ShadowProps } = {
@@ -33,7 +56,7 @@ type ImageItemProps = {
   index: number;
 };
 
-const ImageItem: React.FC<ImageItemProps> = ({ item, index }) => {
+const ImageItem: React.FC<ImageItemProps> = memo(({ item, index }) => {
   if (item.length === 1) {
     return (
       <View style={[s.imageContainer, s.row]}>
@@ -64,7 +87,7 @@ const ImageItem: React.FC<ImageItemProps> = ({ item, index }) => {
       </View>
     );
   }
-};
+});
 
 const groupedImages = images.reduce<ImageData[][]>((acc, curr, index) => {
   if (index % 2 === 0) {
@@ -76,22 +99,52 @@ const groupedImages = images.reduce<ImageData[][]>((acc, curr, index) => {
 }, []);
 
 const Market: React.FC = () => {
+  const bottomTabHeight = useBottomTabBarHeight();
+  const { animatedStyles } = useAnimatedCategories();
+
   const renderItem: ListRenderItem<ImageData[]> = useCallback(
     ({ item, index }) => <ImageItem item={item} index={index} />,
     []
   );
 
   return (
-    <ScreenWrapper>
-      <FlatList
-        numColumns={2}
-        data={groupedImages}
-        renderItem={renderItem}
-        columnWrapperStyle={s.columnWrapperStyle}
-        contentContainerStyle={s.contentContainerStyle}
-        keyExtractor={(item, index) => index.toString()}
-      />
-    </ScreenWrapper>
+    <React.Fragment>
+      <ScreenWrapper style={{}}>
+        <FlatList
+          numColumns={2}
+          data={groupedImages}
+          renderItem={renderItem}
+          keyExtractor={(item, index) => index.toString()}
+          columnWrapperStyle={s.columnWrapperStyle}
+          contentContainerStyle={[
+            s.contentContainerStyle,
+            { paddingBottom: bottomTabHeight + 80 },
+          ]}
+        />
+      </ScreenWrapper>
+
+      <View style={[s.categoryFloatingView, { bottom: bottomTabHeight }]}>
+        <BlurView overlayColor="transparent" style={{ overflow: "visible" }}>
+          <Animated.View style={[animatedStyles]}>
+            <ScrollView
+              horizontal={true}
+              style={{ paddingHorizontal: 10 }}
+              contentContainerStyle={{ gap: 10 }}
+              showsHorizontalScrollIndicator={false}
+            >
+              {categories.map((item, index) => {
+                return (
+                  <View key={index} style={[s.categoryContainer, {}]}>
+                    <Image source={{ uri: item.uri }} style={s.categoryImage} />
+                    <Text style={s.categoryName}>{item.name}</Text>
+                  </View>
+                );
+              })}
+            </ScrollView>
+          </Animated.View>
+        </BlurView>
+      </View>
+    </React.Fragment>
   );
 };
 

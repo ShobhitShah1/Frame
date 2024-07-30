@@ -5,7 +5,11 @@ import {
 import { DrawerNavigationState, ParamListBase } from "@react-navigation/native";
 import { NativeStackNavigationOptions } from "@react-navigation/native-stack";
 import { COLORS } from "./Theme";
-import { ScrollViewProps, ViewStyle } from "react-native";
+import {
+  ScrollViewProps,
+  TouchableOpacityProps,
+  ViewStyle,
+} from "react-native";
 import { ReactNode } from "react";
 
 declare global {
@@ -20,6 +24,7 @@ export type RootStackParamList = {
   Home: undefined;
   Market: undefined;
   Save: undefined;
+  CanvasFrame: undefined;
 };
 
 export interface ScreenWrapperProps extends ScrollViewProps {
@@ -31,7 +36,6 @@ export const screenOptions: NativeStackNavigationOptions = {
   headerShown: false,
   animation: "fade",
   animationTypeForReplace: "push",
-  presentation: "transparentModal",
   navigationBarColor: COLORS.White,
 };
 
@@ -39,4 +43,8 @@ export interface CustomDrawerContentProps {
   state: DrawerNavigationState<ParamListBase>;
   navigation: DrawerNavigationHelpers;
   descriptors: DrawerDescriptorMap;
+}
+
+export interface CustomButtonProps extends TouchableOpacityProps {
+  children: ReactNode;
 }

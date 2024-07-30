@@ -25,7 +25,7 @@ const TabIcon = memo(
     <Image
       style={[
         styles.icon,
-        { tintColor: focused ? COLORS.Primary : COLORS.Black },
+        { tintColor: focused ? COLORS.White : COLORS.Black },
       ]}
       source={source}
     />
@@ -52,9 +52,10 @@ const screenOptions = ({
   },
   headerShown: false,
   tabBarShowLabel: false,
-  tabBarStyle: { position: "absolute" },
+  tabBarStyle: { position: "absolute", borderTopWidth: undefined },
   tabBarBackground: () => (
     <BlurView
+      blurType="xlight"
       blurAmount={80}
       style={styles.blurView}
       overlayColor="transparent"
