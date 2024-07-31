@@ -5404,6 +5404,13 @@ react-native-gesture-handler@^2.18.0:
     invariant "^2.2.4"
     prop-types "^15.7.2"
 
+react-native-inset-shadow@^1.0.3:
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/react-native-inset-shadow/-/react-native-inset-shadow-1.0.3.tgz#9a0cd6d33b69cbc95d1aa5568e1b938e9a43506b"
+  integrity sha512-4UXuSrenJtOWKcV0zSqHLQ47Oxn+BXdmxFxYXf5rE8KletbTvQq8ziZsX8MSEegUGWDcJJ3Mw+1OVbPJxm4lZg==
+  dependencies:
+    prop-types "^15.7.2"
+
 react-native-reanimated@^3.14.0:
   version "3.14.0"
   resolved "https://registry.yarnpkg.com/react-native-reanimated/-/react-native-reanimated-3.14.0.tgz#2118265f3a5cad8c142633e36d76d0f0cc8cc9e8"

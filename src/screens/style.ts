@@ -81,9 +81,11 @@ export const s = StyleSheet.create({
     alignSelf: "center",
   },
   headerContainerView: {
+    height: 50,
     width: "100%",
     marginVertical: 5,
     alignSelf: "center",
+    justifyContent: "center",
   },
   saveHeaderFlexView: {
     flexDirection: "row",
@@ -94,9 +96,8 @@ export const s = StyleSheet.create({
     width: MENU_ICON_SIZE,
     height: MENU_ICON_SIZE,
     borderRadius: 500,
+    overflow: "hidden",
     backgroundColor: "white",
-    borderColor: "black",
-    borderWidth: 1,
     justifyContent: "center",
   },
   saveIcons: {

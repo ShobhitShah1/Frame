@@ -5,6 +5,8 @@ import { LARGE_IMAGE } from "../common/GlobalConfig";
 import CustomButton from "../components/CustomButton";
 import ScreenWrapper from "../components/ScreenWrapper";
 import { s } from "./style";
+import useCustomNavigation from "../routes/useCustomNavigation";
+import InsetShadow from "react-native-inset-shadow";
 
 const listHeaderComponent = () => {
   return (
@@ -15,6 +17,8 @@ const listHeaderComponent = () => {
 };
 
 const Save = () => {
+  const navigation = useCustomNavigation() as any;
+
   const renderSaveItems = ({ item, index }: any) => {
     return (
       <View style={s.saveItemContainer}>
@@ -30,9 +34,23 @@ const Save = () => {
       <View style={s.saveWidthWrapper}>
         <View style={s.headerContainerView}>
           <View style={s.saveHeaderFlexView}>
-            <CustomButton style={s.saveMenuIconView}>
-              <Image source={IconsPath.ic_menu} style={s.saveIcons} />
+            <CustomButton
+              onPress={() => navigation?.openDrawer()}
+              style={s.saveMenuIconView}
+            >
+              <InsetShadow elevation={13}>
+                <View
+                  style={{
+                    flex: 1,
+                    justifyContent: "center",
+                    alignSelf: "center",
+                  }}
+                >
+                  <Image source={IconsPath.ic_menu} style={s.saveIcons} />
+                </View>
+              </InsetShadow>
             </CustomButton>
+
             <View style={s.saveHeaderDeleteAndSelectFlexView}>
               <CustomButton>
                 <Image
