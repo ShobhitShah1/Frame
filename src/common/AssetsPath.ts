@@ -1,4 +1,6 @@
-export const ImagesPath = {};
+export const ImagesPath = {
+  feedback: require("../../assets/images/feedback.png"),
+};
 
 export const IconsPath = {
   ic_home: require("../../assets/Icons/ic_home.png"),
@@ -19,5 +21,10 @@ export const IconsPath = {
   ic_back: require("../../assets/Icons/ic_back.png"),
   ic_selectAll: require("../../assets/Icons/ic_selectAll.png"),
   ic_delete: require("../../assets/Icons/ic_delete.png"),
+  ic_close: require("../../assets/Icons/ic_close.png"),
+  ic_smiley_good: require("../../assets/Icons/ic_smiley-good.png"),
+  ic_smiley_happy: require("../../assets/Icons/ic_smiley-happy.png"),
+  ic_smiley_neutral: require("../../assets/Icons/ic_smiley-neutral.png"),
+  ic_smiley_sad: require("../../assets/Icons/ic_smiley-sad.png"),
 };
 export default { ImagesPath, IconsPath };

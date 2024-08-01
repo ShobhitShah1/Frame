@@ -1,5 +1,5 @@
 import React from "react";
-import { FlatList, Image, Text, View } from "react-native";
+import { FlatList, Image, SafeAreaView, Text, View } from "react-native";
 import { IconsPath } from "../common/AssetsPath";
 import { LARGE_IMAGE } from "../common/GlobalConfig";
 import CustomButton from "../components/CustomButton";
@@ -7,6 +7,7 @@ import ScreenWrapper from "../components/ScreenWrapper";
 import { s } from "./style";
 import useCustomNavigation from "../routes/useCustomNavigation";
 import InsetShadow from "react-native-inset-shadow";
+import { useBottomTabBarHeight } from "@react-navigation/bottom-tabs";
 
 const listHeaderComponent = () => {
   return (
@@ -18,6 +19,7 @@ const listHeaderComponent = () => {
 
 const Save = () => {
   const navigation = useCustomNavigation() as any;
+  const bottomTabHeight = useBottomTabBarHeight();
 
   const renderSaveItems = ({ item, index }: any) => {
     return (
@@ -30,7 +32,7 @@ const Save = () => {
   };
 
   return (
-    <ScreenWrapper>
+    <SafeAreaView style={[s.container]}>
       <View style={s.saveWidthWrapper}>
         <View style={s.headerContainerView}>
           <View style={s.saveHeaderFlexView}>
@@ -70,14 +72,18 @@ const Save = () => {
 
         <FlatList
           numColumns={2}
-          data={[1, 2, 3, 4, 5]}
+          data={Array.from({ length: 20 })}
           renderItem={renderSaveItems}
-          contentContainerStyle={{ gap: 10 }}
+          showsVerticalScrollIndicator={false}
+          contentContainerStyle={{
+            gap: 10,
+            paddingBottom: bottomTabHeight + 75,
+          }}
           ListHeaderComponent={listHeaderComponent}
           columnWrapperStyle={s.saveColumnWrapperStyle}
         />
       </View>
-    </ScreenWrapper>
+    </SafeAreaView>
   );
 };
 

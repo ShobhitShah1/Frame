@@ -10,10 +10,12 @@ const Drawer = createDrawerNavigator<RootStackParamList>();
 const DrawerTab = () => {
   return (
     <Drawer.Navigator
-      drawerContent={(props) => <CustomDrawerContent {...props} />}
+      drawerContent={(props) => <CustomDrawerContent />}
       screenOptions={{
         headerShown: false,
+        overlayColor: "rgba(0,0,0,0.5)",
         drawerStyle: { backgroundColor: "transparent" },
+        sceneContainerStyle: { backgroundColor: "red" },
       }}
     >
       <Drawer.Screen name="BottomTab" component={BottomTab} />

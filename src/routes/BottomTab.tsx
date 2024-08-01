@@ -1,17 +1,17 @@
 import { BlurView } from "@react-native-community/blur";
 import {
-  createBottomTabNavigator,
   BottomTabNavigationOptions,
+  createBottomTabNavigator,
 } from "@react-navigation/bottom-tabs";
+import { RouteProp } from "@react-navigation/native";
 import React, { memo } from "react";
 import { Image, StyleSheet } from "react-native";
-import { RouteProp } from "@react-navigation/native";
+import { IconsPath } from "../common/AssetsPath";
 import { RootStackParamList } from "../config/Interface";
+import { COLORS } from "../config/Theme";
 import Home from "../screens/Home";
 import Market from "../screens/Market";
 import Save from "../screens/Save";
-import { IconsPath } from "../common/AssetsPath";
-import { COLORS } from "../config/Theme";
 
 const Tab = createBottomTabNavigator<RootStackParamList>();
 
@@ -63,13 +63,18 @@ const screenOptions = ({
   ),
 });
 
-const BottomTab = () => (
-  <Tab.Navigator screenOptions={screenOptions}>
-    <Tab.Screen name="Home" component={Home} />
-    <Tab.Screen name="Market" component={Market} />
-    <Tab.Screen name="Save" component={Save} />
-  </Tab.Navigator>
-);
+const BottomTab = () => {
+  return (
+    <Tab.Navigator
+      screenOptions={screenOptions}
+      // tabBar={(props) => <CustomTabBar {...props} />}
+    >
+      <Tab.Screen name="Home" component={Home} />
+      <Tab.Screen name="Market" component={Market} />
+      <Tab.Screen name="Save" component={Save} />
+    </Tab.Navigator>
+  );
+};
 
 export default BottomTab;
 
@@ -83,5 +88,25 @@ const styles = StyleSheet.create({
     width: 25,
     height: 25,
     resizeMode: "contain",
+  },
+  back: {
+    left: 0,
+    right: 0,
+    bottom: 0,
+    minHeight: 120,
+    maxHeight: 500,
+    alignItems: "center",
+    position: "absolute",
+    borderTopLeftRadius: 27,
+    borderTopRightRadius: 27,
+  },
+  button: {
+    height: 7,
+    width: 45,
+    marginTop: 10,
+    borderRadius: 10,
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: COLORS.Primary,
   },
 });

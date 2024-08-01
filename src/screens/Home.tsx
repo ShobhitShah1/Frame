@@ -16,6 +16,9 @@ import ScreenWrapper from "../components/ScreenWrapper";
 import { useAnimatedCategories } from "../hooks/useAnimatedCategories";
 import { s } from "./style";
 import useCustomNavigation from "../routes/useCustomNavigation";
+import { IconsPath } from "../common/AssetsPath";
+import CustomButton from "../components/CustomButton";
+import InsetShadow from "react-native-inset-shadow";
 
 type ImageData = {
   id: string;
@@ -61,7 +64,7 @@ type ImageItemProps = {
 const Home: React.FC = () => {
   const bottomTabHeight = useBottomTabBarHeight();
   const { animatedStyles } = useAnimatedCategories();
-  const navigation = useCustomNavigation();
+  const navigation = useCustomNavigation() as any;
 
   const ImageItem: React.FC<ImageItemProps> = memo(({ item, index }) => {
     const onPress = () => {
@@ -70,7 +73,11 @@ const Home: React.FC = () => {
 
     if (item.length === 1) {
       return (
-        <TouchableOpacity onPress={onPress} style={[s.imageContainer, s.row]}>
+        <TouchableOpacity
+          activeOpacity={1}
+          onPress={onPress}
+          style={[s.imageContainer, s.row]}
+        >
           <Shadow {...ShadowPresets.view}>
             <Image source={{ uri: item[0].uri }} style={s.smallImage} />
           </Shadow>
@@ -80,7 +87,11 @@ const Home: React.FC = () => {
 
     if (isBigImage(index * 2)) {
       return (
-        <TouchableOpacity onPress={onPress} style={[s.row, s.imageContainer]}>
+        <TouchableOpacity
+          activeOpacity={1}
+          onPress={onPress}
+          style={[s.row, s.imageContainer]}
+        >
           <Shadow {...ShadowPresets.view}>
             <Image source={{ uri: item[0].uri }} style={s.largeImage} />
           </Shadow>
@@ -89,12 +100,20 @@ const Home: React.FC = () => {
     } else {
       return (
         <View>
-          <TouchableOpacity onPress={onPress} style={[s.imageContainer]}>
+          <TouchableOpacity
+            activeOpacity={1}
+            onPress={onPress}
+            style={[s.imageContainer]}
+          >
             <Shadow {...ShadowPresets.view}>
               <Image source={{ uri: item[0].uri }} style={s.smallImage} />
             </Shadow>
           </TouchableOpacity>
-          <TouchableOpacity onPress={onPress} style={[s.imageContainer]}>
+          <TouchableOpacity
+            activeOpacity={1}
+            onPress={onPress}
+            style={[s.imageContainer]}
+          >
             <Shadow {...ShadowPresets.view}>
               <Image source={{ uri: item[1]?.uri }} style={s.smallImage} />
             </Shadow>
@@ -120,6 +139,36 @@ const Home: React.FC = () => {
 
   return (
     <React.Fragment>
+      <View
+        style={[
+          s.headerContainerView,
+          {
+            position: "absolute",
+            top: 0,
+            zIndex: 9999,
+            left: 20,
+          },
+        ]}
+      >
+        <View style={s.saveHeaderFlexView}>
+          <CustomButton
+            onPress={() => navigation?.openDrawer()}
+            style={s.saveMenuIconView}
+          >
+            <InsetShadow elevation={13}>
+              <View
+                style={{
+                  flex: 1,
+                  justifyContent: "center",
+                  alignSelf: "center",
+                }}
+              >
+                <Image source={IconsPath.ic_menu} style={s.saveIcons} />
+              </View>
+            </InsetShadow>
+          </CustomButton>
+        </View>
+      </View>
       <ScreenWrapper style={{}}>
         <FlatList
           numColumns={2}
