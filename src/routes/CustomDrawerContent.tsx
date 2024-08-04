@@ -5,7 +5,9 @@ import {
   Image,
   KeyboardAvoidingView,
   LayoutAnimation,
+  Linking,
   Platform,
+  Share,
   StatusBar,
   StyleSheet,
   Text,
@@ -174,14 +176,14 @@ export const CustomDrawerContent = () => {
         />
         <LinkView
           onPress={() => {
-            setModalsState(() => ({ ...modalsState, FnQ: true }));
+            Share.share({ message: "Frame App Test" });
           }}
           iconName={IconsPath.ic_share}
           title="Share"
         />
         <LinkView
           onPress={() => {
-            setModalsState(() => ({ ...modalsState, FnQ: true }));
+            Linking.openURL("https://www.google.com");
           }}
           iconName={IconsPath.ic_privacy}
           title="Privacy policy"
@@ -232,11 +234,7 @@ export const CustomDrawerContent = () => {
           <View style={s.feedbackInputContainer}>
             <Image source={ImagesPath.feedback} style={s.feedbackImage} />
             <View style={s.feedBackContentView}>
-              <BlurView
-                blurType="light"
-                overlayColor="transparent"
-                style={{ flex: 1 }}
-              >
+              <BlurView blurType="light" overlayColor="transparent" style={{}}>
                 <View style={{ paddingHorizontal: 10, paddingVertical: 25 }}>
                   <Text style={s.feedBackBoxTitle}>
                     We appreciate your {"\n"}

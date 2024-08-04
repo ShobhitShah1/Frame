@@ -1,11 +1,13 @@
-import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import React from "react";
-import CustomButton from "./CustomButton";
+import { Image, StyleSheet, useWindowDimensions, View } from "react-native";
 import { IconsPath } from "../common/AssetsPath";
+import CustomButton from "./CustomButton";
 
 const HeaderView = () => {
+  const { height } = useWindowDimensions();
+
   return (
-    <View style={s.container}>
+    <View style={[s.container, { height: "8%" }]}>
       <View style={s.flexView}>
         <CustomButton>
           <Image style={s.icons} source={IconsPath.ic_back} />
