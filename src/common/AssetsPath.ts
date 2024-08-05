@@ -26,5 +26,8 @@ export const IconsPath = {
   ic_smiley_happy: require("../../assets/Icons/ic_smiley-happy.png"),
   ic_smiley_neutral: require("../../assets/Icons/ic_smiley-neutral.png"),
   ic_smiley_sad: require("../../assets/Icons/ic_smiley-sad.png"),
+  ic_checkMark: require("../../assets/Icons/ic_checkMark.png"),
+  ic_imagePlaceholder: require("../../assets/Icons/ic_imagePlaceholder.png"),
+  ic_leftArrow: require("../../assets/Icons/ic_leftArrow.png"),
 };
 export default { ImagesPath, IconsPath };

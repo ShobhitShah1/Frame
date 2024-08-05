@@ -138,4 +138,8 @@ export const s = StyleSheet.create({
     height: "100%",
     resizeMode: "cover",
   },
+  selectedItem:{
+    borderWidth: 1,
+    borderColor: 'red'
+  }
 });

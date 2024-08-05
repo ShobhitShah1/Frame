@@ -1,15 +1,16 @@
 import React from "react";
-import { Image, StyleSheet, useWindowDimensions, View } from "react-native";
+import { Image, StyleSheet, View } from "react-native";
 import { IconsPath } from "../common/AssetsPath";
+import useCustomNavigation from "../routes/useCustomNavigation";
 import CustomButton from "./CustomButton";
 
 const HeaderView = () => {
-  const { height } = useWindowDimensions();
+  const navigation = useCustomNavigation();
 
   return (
     <View style={[s.container, { height: "8%" }]}>
       <View style={s.flexView}>
-        <CustomButton>
+        <CustomButton onPress={() => navigation.goBack()}>
           <Image style={s.icons} source={IconsPath.ic_back} />
         </CustomButton>
         <CustomButton>

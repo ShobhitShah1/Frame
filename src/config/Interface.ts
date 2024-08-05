@@ -48,3 +48,13 @@ export interface CustomDrawerContentProps {
 export interface CustomButtonProps extends TouchableOpacityProps {
   children: ReactNode;
 }
+
+export interface FAQItemProps {
+  item: {
+    question: string;
+    answer: string;
+  };
+  index: number;
+  expanded: boolean;
+  onPress: (index: number) => void;
+}

@@ -1,13 +1,12 @@
-import React from "react";
+import { useBottomTabBarHeight } from "@react-navigation/bottom-tabs";
+import React, { useCallback, useMemo, useState } from "react";
 import { FlatList, Image, SafeAreaView, Text, View } from "react-native";
+import InsetShadow from "react-native-inset-shadow";
 import { IconsPath } from "../common/AssetsPath";
 import { LARGE_IMAGE } from "../common/GlobalConfig";
 import CustomButton from "../components/CustomButton";
-import ScreenWrapper from "../components/ScreenWrapper";
-import { s } from "./style";
 import useCustomNavigation from "../routes/useCustomNavigation";
-import InsetShadow from "react-native-inset-shadow";
-import { useBottomTabBarHeight } from "@react-navigation/bottom-tabs";
+import { s } from "./style";
 
 const listHeaderComponent = () => {
   return (
@@ -20,16 +19,62 @@ const listHeaderComponent = () => {
 const Save = () => {
   const navigation = useCustomNavigation() as any;
   const bottomTabHeight = useBottomTabBarHeight();
+  const [selectedItems, setSelectedItems] = useState<number[]>([]);
+  const [selectMode, setSelectMode] = useState<boolean>(false);
 
-  const renderSaveItems = ({ item, index }: any) => {
-    return (
-      <View style={s.saveItemContainer}>
-        <View>
-          <Image source={{ uri: LARGE_IMAGE }} style={s.saveItemImage} />
-        </View>
-      </View>
-    );
-  };
+  const handleLongPress = useCallback(
+    (index: number) => {
+      if (!selectMode) {
+        setSelectMode(true);
+      }
+      toggleSelection(index);
+    },
+    [selectMode]
+  );
+
+  const toggleSelection = useCallback((index: number) => {
+    setSelectedItems((prevSelectedItems) => {
+      if (prevSelectedItems.includes(index)) {
+        return prevSelectedItems.filter((item) => item !== index);
+      } else {
+        return [...prevSelectedItems, index];
+      }
+    });
+  }, []);
+
+  const handleSelectAll = useCallback(() => {
+    if (selectedItems.length === Array.from({ length: 20 }).length) {
+      setSelectedItems([]);
+    } else {
+      setSelectedItems(Array.from({ length: 20 }, (_, index) => index));
+    }
+  }, [selectedItems]);
+
+  const handleDelete = useCallback(() => {
+    setSelectedItems([]);
+    setSelectMode(false);
+  }, []);
+
+  const renderSaveItems = useCallback(
+    ({ item, index }: any) => {
+      const isSelected = selectedItems.includes(index);
+
+      return (
+        <CustomButton
+          onLongPress={() => handleLongPress(index)}
+          onPress={() => selectMode && toggleSelection(index)}
+          style={[s.saveItemContainer, isSelected && s.selectedItem]}
+        >
+          <View>
+            <Image source={{ uri: LARGE_IMAGE }} style={s.saveItemImage} />
+          </View>
+        </CustomButton>
+      );
+    },
+    [selectedItems, selectMode, handleLongPress, toggleSelection]
+  );
+
+  const memoizedListHeaderComponent = useMemo(() => listHeaderComponent, []);
 
   return (
     <SafeAreaView style={[s.container]}>
@@ -54,13 +99,13 @@ const Save = () => {
             </CustomButton>
 
             <View style={s.saveHeaderDeleteAndSelectFlexView}>
-              <CustomButton>
+              <CustomButton onPress={handleSelectAll}>
                 <Image
                   source={IconsPath.ic_selectAll}
                   style={s.saveDeleteAndSelectIcon}
                 />
               </CustomButton>
-              <CustomButton>
+              <CustomButton onPress={handleDelete}>
                 <Image
                   source={IconsPath.ic_delete}
                   style={s.saveDeleteAndSelectIcon}
@@ -79,7 +124,7 @@ const Save = () => {
             gap: 10,
             paddingBottom: bottomTabHeight + 75,
           }}
-          ListHeaderComponent={listHeaderComponent}
+          ListHeaderComponent={memoizedListHeaderComponent}
           columnWrapperStyle={s.saveColumnWrapperStyle}
         />
       </View>

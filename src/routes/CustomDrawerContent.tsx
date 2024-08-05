@@ -1,5 +1,5 @@
 import { DrawerContentScrollView } from "@react-navigation/drawer";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import {
   FlatList,
   Image,
@@ -21,6 +21,7 @@ import CustomButton from "../components/CustomButton";
 import ModalsWrapper from "../components/ModalsWrapper";
 import { COLORS, FONTS } from "../config/Theme";
 import { BlurView } from "@react-native-community/blur";
+import { FAQItemProps } from "../config/Interface";
 
 const smileyData = [
   {
@@ -71,7 +72,12 @@ const faqData = [
   },
 ];
 
-const FAQItem = ({ item, index, expanded, onPress }) => {
+const FAQItem: React.FC<FAQItemProps> = ({
+  item,
+  index,
+  expanded,
+  onPress,
+}) => {
   return (
     <View>
       <CustomButton
@@ -130,18 +136,20 @@ export const CustomDrawerContent = () => {
   });
   const [expandedIndex, setExpandedIndex] = useState<number | null>(null);
 
-  const onClose = () => {
+  const handlePress = useCallback(
+    (index: number) => {
+      LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
+      setExpandedIndex(expandedIndex === index ? null : index);
+    },
+    [expandedIndex]
+  );
+  const onClose = useCallback(() => {
     setModalsState({
       FnQ: false,
       feedBack: false,
       rateUs: false,
     });
-  };
-
-  const handlePress = (index: number) => {
-    LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
-    setExpandedIndex(expandedIndex === index ? null : index);
-  };
+  }, []);
 
   return (
     <DrawerContentScrollView style={s.container}>
@@ -154,37 +162,29 @@ export const CustomDrawerContent = () => {
 
       <View style={s.linkContainer}>
         <LinkView
-          onPress={() => {
-            setModalsState(() => ({ ...modalsState, FnQ: true }));
-          }}
+          onPress={() => setModalsState((prev) => ({ ...prev, FnQ: true }))}
           iconName={IconsPath.ic_qAndA}
           title="Q&A"
         />
         <LinkView
-          onPress={() => {
-            setModalsState(() => ({ ...modalsState, feedBack: true }));
-          }}
+          onPress={() =>
+            setModalsState((prev) => ({ ...prev, feedBack: true }))
+          }
           iconName={IconsPath.ic_feedback}
           title="Feedback"
         />
         <LinkView
-          onPress={() => {
-            setModalsState(() => ({ ...modalsState, FnQ: true }));
-          }}
+          onPress={() => setModalsState((prev) => ({ ...prev, rateUs: true }))}
           iconName={IconsPath.ic_star}
           title="Rate us"
         />
         <LinkView
-          onPress={() => {
-            Share.share({ message: "Frame App Test" });
-          }}
+          onPress={() => Share.share({ message: "Frame App Test" })}
           iconName={IconsPath.ic_share}
           title="Share"
         />
         <LinkView
-          onPress={() => {
-            Linking.openURL("https://www.google.com");
-          }}
+          onPress={() => Linking.openURL("https://www.google.com")}
           iconName={IconsPath.ic_privacy}
           title="Privacy policy"
         />
