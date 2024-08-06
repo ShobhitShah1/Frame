@@ -234,33 +234,8 @@ export const CustomDrawerContent = () => {
           <View style={s.feedbackInputContainer}>
             <Image source={ImagesPath.feedback} style={s.feedbackImage} />
             <View style={s.feedBackContentView}>
-              <BlurView blurType="light" overlayColor="transparent" style={{}}>
-                <View style={{ paddingHorizontal: 10, paddingVertical: 25 }}>
-                  <Text style={s.feedBackBoxTitle}>
-                    We appreciate your {"\n"}
-                    <Text style={{ fontWeight: "bold" }}>feedback</Text>
-                  </Text>
-                  <View style={s.smileyFlexView}>
-                    {smileyData.map((res, index) => {
-                      return (
-                        <CustomButton key={index}>
-                          <Image
-                            source={res.icon}
-                            style={s.feedbackSmileyIcon}
-                          />
-                        </CustomButton>
-                      );
-                    })}
-                  </View>
-                  <View>
-                    <KeyboardAvoidingView>
-                      <TextInput style={s.feedbackTextInput} />
-                    </KeyboardAvoidingView>
-                  </View>
-                  <CustomButton style={[s.sendFeedbackButton]}>
-                    <Text style={s.buttonText}>{"Submit My Feedback"}</Text>
-                  </CustomButton>
-                </View>
+              <BlurView blurType="light" overlayColor="transparent">
+                <View></View>
               </BlurView>
             </View>
           </View>
