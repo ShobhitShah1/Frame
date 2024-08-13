@@ -1,8 +1,8 @@
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import React from "react";
 import { RootStackParamList } from "../config/Interface";
-import BottomTab from "./BottomTab";
 import CanvasFrame from "../screens/CanvasFrame";
+import BottomTab from "./BottomTab";
 import { CustomDrawerContent } from "./CustomDrawerContent";
 
 const Drawer = createDrawerNavigator<RootStackParamList>();
@@ -15,7 +15,6 @@ const DrawerTab = () => {
         headerShown: false,
         overlayColor: "rgba(0,0,0,0.5)",
         drawerStyle: { backgroundColor: "transparent" },
-        sceneContainerStyle: { backgroundColor: "red" },
       }}
     >
       <Drawer.Screen name="BottomTab" component={BottomTab} />

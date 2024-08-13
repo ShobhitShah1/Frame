@@ -58,3 +58,19 @@ export interface FAQItemProps {
   expanded: boolean;
   onPress: (index: number) => void;
 }
+
+export type ImageData = {
+  id: string;
+  uri: string;
+};
+
+export type categories = {
+  id: string;
+  uri: string;
+  name: string;
+};
+
+export type ImageItemProps = {
+  item: ImageData[];
+  index: number;
+};

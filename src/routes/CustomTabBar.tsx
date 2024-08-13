@@ -74,7 +74,14 @@ const CustomTabBar: React.FC<CustomTabBarProps> = ({
               onPress={() => handlePress(route.name)}
             >
               <Animated.View
-                style={[styles.tabBackground(isFocused), animatedStyle]}
+                style={[
+                  styles.tabBackground,
+                  {
+                    borderColor: isFocused ? "white" : "transparent",
+                    backgroundColor: isFocused ? "white" : "transparent",
+                  },
+                  animatedStyle,
+                ]}
               >
                 <Image source={source} style={styles.icon} resizeMode="cover" />
               </Animated.View>
@@ -114,16 +121,14 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
-  tabBackground: (isFocused: boolean) => ({
+  tabBackground: {
     padding: 8,
     borderWidth: 5,
     borderRadius: 100,
     alignItems: "center",
     marginHorizontal: 20,
     justifyContent: "center",
-    borderColor: isFocused ? "white" : "transparent",
-    backgroundColor: isFocused ? "white" : "transparent",
-  }),
+  },
   icon: {
     width: 40,
     height: 40,

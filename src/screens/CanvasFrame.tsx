@@ -29,15 +29,13 @@ const CanvasFrame = () => {
 
     const fetchedAlbums = await MediaLibrary.getAssetsAsync({});
 
-    console.log("fetchedAlbums", fetchedAlbums);
-
     if (fetchedAlbums.assets.length !== 0) {
       setAlbums(fetchedAlbums.assets);
       setMediaModalVisible(true);
     }
   };
 
-  const renderImageView = ({ item, index }: any) => {
+  const renderImageView = ({ item }: any) => {
     const isSelected = selectedImages.includes(item.uri);
     return (
       <CustomButton

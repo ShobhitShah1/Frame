@@ -12,19 +12,9 @@ import {
 import Animated from "react-native-reanimated";
 import { Shadow, ShadowProps } from "react-native-shadow-2";
 import ScreenWrapper from "../components/ScreenWrapper";
+import { categories, ImageData, ImageItemProps } from "../config/Interface";
 import { useAnimatedCategories } from "../hooks/useAnimatedCategories";
 import { s } from "./style";
-
-type ImageData = {
-  id: string;
-  uri: string;
-};
-
-type categories = {
-  id: string;
-  uri: string;
-  name: string;
-};
 
 const images: ImageData[] = Array.from({ length: 12 }, (_, index) => ({
   id: (index + 1).toString(),
@@ -49,11 +39,6 @@ const ShadowPresets: { view: ShadowProps } = {
 const isBigImage = (index: number): boolean => {
   const position = (index % 10) + 1;
   return position === 1 || position === 6 || position === 7;
-};
-
-type ImageItemProps = {
-  item: ImageData[];
-  index: number;
 };
 
 const ImageItem: React.FC<ImageItemProps> = memo(({ item, index }) => {
@@ -109,7 +94,7 @@ const Market: React.FC = () => {
 
   return (
     <React.Fragment>
-      <ScreenWrapper style={{}}>
+      <ScreenWrapper>
         <FlatList
           numColumns={2}
           data={groupedImages}

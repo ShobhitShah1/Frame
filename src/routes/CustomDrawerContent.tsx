@@ -1,9 +1,9 @@
+import { BlurView } from "@react-native-community/blur";
 import { DrawerContentScrollView } from "@react-navigation/drawer";
 import { useCallback, useState } from "react";
 import {
   FlatList,
   Image,
-  KeyboardAvoidingView,
   LayoutAnimation,
   Linking,
   Platform,
@@ -11,7 +11,6 @@ import {
   StatusBar,
   StyleSheet,
   Text,
-  TextInput,
   UIManager,
   View,
   ViewStyle,
@@ -19,28 +18,8 @@ import {
 import { IconsPath, ImagesPath } from "../common/AssetsPath";
 import CustomButton from "../components/CustomButton";
 import ModalsWrapper from "../components/ModalsWrapper";
-import { COLORS, FONTS } from "../config/Theme";
-import { BlurView } from "@react-native-community/blur";
 import { FAQItemProps } from "../config/Interface";
-
-const smileyData = [
-  {
-    id: 0,
-    icon: IconsPath.ic_smiley_sad,
-  },
-  {
-    id: 1,
-    icon: IconsPath.ic_smiley_neutral,
-  },
-  {
-    id: 2,
-    icon: IconsPath.ic_smiley_happy,
-  },
-  {
-    id: 3,
-    icon: IconsPath.ic_smiley_good,
-  },
-];
+import { COLORS, FONTS } from "../config/Theme";
 
 if (
   Platform.OS === "android" &&

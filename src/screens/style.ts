@@ -2,6 +2,7 @@ import { Dimensions, StyleSheet } from "react-native";
 import { COLORS, FONTS } from "../config/Theme";
 
 const { width } = Dimensions.get("window");
+
 const IMAGE_WIDTH = width / 2 - 8;
 const IMAGE_HEIGHT = 300;
 const SMALL_IMAGE_HEIGHT = IMAGE_HEIGHT / 2 - 5;
@@ -138,8 +139,8 @@ export const s = StyleSheet.create({
     height: "100%",
     resizeMode: "cover",
   },
-  selectedItem:{
+  selectedItem: {
     borderWidth: 1,
-    borderColor: 'red'
-  }
+    borderColor: "red",
+  },
 });

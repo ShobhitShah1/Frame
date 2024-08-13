@@ -26,17 +26,17 @@ const ModalsWrapper: React.FC<Modal> = ({
       statusBarTranslucent
       avoidKeyboard
       customBackdrop={
-        <TouchableWithoutFeedback onPress={onClose} style={{ flex: 1 }}>
+        <TouchableWithoutFeedback onPress={onClose} style={s.flex}>
           {isBlurView ? (
-            <BlurView style={{ flex: 1 }} blurType="dark">
-              <View style={{ flex: 1, backgroundColor: "rgba(0,0,0,0.5)" }} />
+            <BlurView style={s.flex} blurType="dark">
+              <View style={s.blurView} />
             </BlurView>
           ) : (
             <View style={{ flex: 1 }} />
           )}
         </TouchableWithoutFeedback>
       }
-      style={{ zIndex: 9999, margin: 0 }}
+      style={s.modalContainer}
       isVisible={isVisible}
     >
       {children}
@@ -46,4 +46,16 @@ const ModalsWrapper: React.FC<Modal> = ({
 
 export default ModalsWrapper;
 
-const styles = StyleSheet.create({});
+const s = StyleSheet.create({
+  flex: {
+    flex: 1,
+  },
+  blurView: {
+    flex: 1,
+    backgroundColor: "rgba(0,0,0,0.5)",
+  },
+  modalContainer: {
+    zIndex: 9999,
+    margin: 0,
+  },
+});

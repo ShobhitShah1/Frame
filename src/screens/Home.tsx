@@ -10,26 +10,16 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
+import InsetShadow from "react-native-inset-shadow";
 import Animated from "react-native-reanimated";
 import { Shadow, ShadowProps } from "react-native-shadow-2";
-import ScreenWrapper from "../components/ScreenWrapper";
-import { useAnimatedCategories } from "../hooks/useAnimatedCategories";
-import { s } from "./style";
-import useCustomNavigation from "../routes/useCustomNavigation";
 import { IconsPath } from "../common/AssetsPath";
 import CustomButton from "../components/CustomButton";
-import InsetShadow from "react-native-inset-shadow";
-
-type ImageData = {
-  id: string;
-  uri: string;
-};
-
-type categories = {
-  id: string;
-  uri: string;
-  name: string;
-};
+import ScreenWrapper from "../components/ScreenWrapper";
+import { useAnimatedCategories } from "../hooks/useAnimatedCategories";
+import useCustomNavigation from "../routes/useCustomNavigation";
+import { s } from "./style";
+import { categories, ImageData } from "../config/Interface";
 
 const images: ImageData[] = Array.from({ length: 20 }, (_, index) => ({
   id: (index + 1).toString(),
